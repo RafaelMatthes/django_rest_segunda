@@ -13,6 +13,14 @@ class NewsSerializer(serializers.ModelSerializer):
         model = News
         fields = "__all__"
 
+    def to_representation(self, instance):
+        news_dict = super(NewsSerializer, self).to_representation(instance)
+
+        news_dict['author'] = AuthorSerializer().to_representation(instance.author)
+        news_dict['category'] = CategorySerializer().to_representation(instance.category)
+
+        return news_dict
+
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
