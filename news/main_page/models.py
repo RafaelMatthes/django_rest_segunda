@@ -7,7 +7,6 @@ class MainPage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField(max_length=255)
     active = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now=True)
 
 
 

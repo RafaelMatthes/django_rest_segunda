@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import MainPage
 import datetime
 
-
 class MainPageSerializer(serializers.ModelSerializer):
 
     class Meta:
