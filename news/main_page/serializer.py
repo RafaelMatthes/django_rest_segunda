@@ -2,6 +2,10 @@ from rest_framework import serializers
 from .models import MainPage
 import datetime
 
+CURRENCY_LIST = ["USD", "CAD", "EUR", "JPY"]
+
+from .business_logic import CurrencyRate
+
 class MainPageSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -11,11 +15,9 @@ class MainPageSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         main_page_dict = super().to_representation(instance)
         main_page_dict['today'] = datetime.date.today()
-
-        # TODO: Adicionar cotação Dólar/ Euro / CAD
-        # main_page_dict['cotacoes'] =
-
-        # usar a biblioteca resquests
-
+        main_page_dict['cotacoes'] = [
+            {item: CurrencyRate.get_price(item) }
+            for item in CURRENCY_LIST
+        ]
 
         return main_page_dict
